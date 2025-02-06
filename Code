@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recomendaciones de Comida</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5dc;
+            color: #333;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            background-color: #d2b48c;
+            padding: 20px;
+            font-size: 24px;
+            color: white;
+        }
+        .container {
+            width: 80%;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #f5deb3;
+            border-radius: 10px;
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        li {
+            background: #e0c097;
+            margin: 10px;
+            padding: 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        li:hover {
+            background: #c2a477;
+        }
+        .delete-btn {
+            background-color: #8b5a2b;
+            color: white;
+            border: none;
+            padding: 5px;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+        form {
+            margin-top: 20px;
+        }
+        input, button {
+            padding: 10px;
+            margin: 5px;
+            border: none;
+            border-radius: 5px;
+        }
+        input {
+            width: 200px;
+        }
+        button {
+            background-color: #a67b5b;
+            color: white;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        Recomendaciones de Comida
+    </header>
+    <div class="container">
+        <h2>Platos Recomendados</h2>
+        <ul id="food-list">
+            <li>Pasta Carbonara <button class="delete-btn">X</button></li>
+            <li>Sushi Variado <button class="delete-btn">X</button></li>
+            <li>Tacos al Pastor <button class="delete-btn">X</button></li>
+        </ul>
+        <h2>Agregar Recomendación</h2>
+        <form id="food-form">
+            <input type="text" id="food-input" placeholder="Añadir un plato" required>
+            <button type="button" id="add-btn">Agregar</button>
+        </form>
+        <h2>Historia de la Gastronomía</h2>
+        <p>La gastronomía ha evolucionado a lo largo del tiempo, fusionando sabores y tradiciones de distintas culturas para crear experiencias únicas.</p>
+    </div>
+    <script>
+        document.getElementById("add-btn").addEventListener("click", function() {
+            let input = document.getElementById("food-input");
+            if (input.value.trim() === "") return;
+            
+            let foodList = document.getElementById("food-list");
+            let newItem = document.createElement("li");
+            newItem.innerHTML = input.value + ' <button class="delete-btn">X</button>';
+            
+            newItem.addEventListener("click", function() {
+                this.style.backgroundColor = "#c2a477";
+            });
+            
+            let deleteBtn = newItem.querySelector(".delete-btn");
+            deleteBtn.addEventListener("click", function(event) {
+                event.stopPropagation();
+                newItem.remove();
+            });
+            
+            foodList.appendChild(newItem);
+            input.value = "";
+        });
+
+        document.querySelectorAll(".delete-btn").forEach(button => {
+            button.addEventListener("click", function(event) {
+                event.stopPropagation();
+                this.parentElement.remove();
+            });
+        });
+    </script>
+</body>
+</html>
